@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Os agentes da HIPP</title>
-<meta name="description" content="Tres frentes, sete agentes e as 53 rotinas que cada um assume.">
+<meta name="description" content="Tres frentes, sete agentes e as rotinas que cada um assume.">
 <meta property="og:title" content="Os agentes da HIPP">
-<meta property="og:description" content="Tres frentes, sete agentes e as 53 rotinas que cada um assume.">
+<meta property="og:description" content="Tres frentes, sete agentes e as rotinas que cada um assume.">
 <meta name="theme-color" content="#0A1628">
 <style>
 *{box-sizing:border-box}
@@ -94,6 +94,10 @@ ul.lista li:before{content:'';position:absolute;left:0;top:8px;width:5px;height:
   border-radius:50%;background:var(--line2)}
 ul.lista li b{color:var(--fg);font-weight:600}
 
+#emp{width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:9px;
+  padding:11px 12px;color:var(--fg);font-family:var(--body);font-size:14px}
+#emp::placeholder{color:var(--dim)}
+#emp:focus{outline:2px solid var(--teal);outline-offset:1px;border-color:var(--teal)}
 .frentes{display:flex;flex-direction:column;gap:10px}
 .frente{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
   padding:13px 14px;border-left-width:3px}
@@ -170,13 +174,13 @@ ul.lista li b{color:var(--fg);font-weight:600}
       faz:'Busca o dado em cada unidade e em cada fonte, consolida e entrega pronto para uso, sem planilha circulando por e-mail.',
       entra:'Contas, medições e sistemas de cada unidade operacional.',
       sai:'Base consolidada, com origem de cada número rastreável.',
-      rotinas:['Energia','Água','Resíduo','Combustível','Frota','Efluente','Dado social','Consolidação multiunidade','Conferência de lacuna'] },
+      rotinas:['Energia','Água','Resíduo','Combustível','Frota','Efluente','Dado social','Dado de atividade','Limite operacional','Consolidação multiunidade','Conferência de lacuna'] },
 
     { id:'a4', frente:'f2', nome:'Relato',
-      faz:'Monta o relatório no formato exigido por cada framework a partir do dado já consolidado.',
-      entra:'Base consolidada pelo agente de Coleta e o framework alvo.',
-      sai:'Relatório ou questionário respondido, com a origem de cada número.',
-      rotinas:['GRI','SASB','GHG Protocol','IFRS S1 e S2','ISE B3','CDP','EcoVadis','Questionário de cliente','Rastreabilidade de número'] },
+      faz:'Fecha o inventário de emissões por escopo e monta o relatório no formato exigido por cada framework, a partir do dado já consolidado.',
+      entra:'Base consolidada pelo agente de Coleta, fatores de emissão e o framework alvo.',
+      sai:'Inventário de GEE fechado por escopo, relatório e questionário respondidos, com a origem de cada número.',
+      rotinas:['Inventário de GEE','Escopo 1','Escopo 2','Escopo 3','Fator de emissão','GHG Protocol','GRI','SASB','IFRS S1 e S2','ISE B3','CDP','EcoVadis','Questionário de cliente','Rastreabilidade de número'] },
 
     { id:'a5', frente:'f3', nome:'Compra Sustentável',
       faz:'Avalia o fornecedor contra o critério de compra e aponta quando a substituição vale mais que o desenvolvimento.',
@@ -205,6 +209,15 @@ ul.lista li b{color:var(--fg);font-weight:600}
   function link(a,b,len){ links.push({ a:byId[a], b:byId[b], len:len }); }
 
   add({ id:'core', tipo:'core', rotulo:'Sua empresa', r:15, cor:C.fg });
+  try {
+    var h = decodeURIComponent((location.hash || '').replace('#',''))
+              .replace(/[-_]+/g,' ').trim();
+    if (h && h.length < 40) {
+      byId.core.rotulo = h.replace(/\S+/g, function(p){
+        return p.length <= 2 ? p : p.charAt(0).toUpperCase() + p.slice(1);
+      });
+    }
+  } catch(e) {}
 
   FRENTES.forEach(function(f){
     add({ id:f.id, tipo:'frente', rotulo:f.nome, r:10, cor:f.cor, dado:f });
@@ -430,9 +443,17 @@ ul.lista li b{color:var(--fg);font-weight:600}
             '<div class="d">' + esc(f.desc) + '</div></div>';
         }).join('') +
       '</div>' +
+      '<div class="bloco"><span class="k">Nome no centro do mapa</span>' +
+        '<input id="emp" type="text" maxlength="38" placeholder="Sua empresa" value="' +
+          (byId.core.rotulo === 'Sua empresa' ? '' : esc(byId.core.rotulo)) + '">' +
+        '<p style="margin:8px 0 0;color:var(--dim);font-size:12px">Troque pelo nome da empresa antes de apresentar.</p></div>' +
       '<div class="bloco"><span class="k">Como a regra fica</span>' +
         '<p>A regra fica em dado, nunca em código. O motor é construído uma vez e não muda por cliente. ' +
         'O que muda é o arquivo de configuração, escrito por especialista de sustentabilidade.</p></div>';
+    var campo = document.getElementById('emp');
+    if (campo) campo.addEventListener('input', function(){
+      byId.core.rotulo = campo.value.trim() || 'Sua empresa';
+    });
   }
 
   function abrirAgente(a, cor, frenteNome){
