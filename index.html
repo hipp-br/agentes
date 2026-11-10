@@ -104,6 +104,16 @@ ul.lista li b{color:var(--fg);font-weight:600}
 .frente .n{font-family:var(--display);font-weight:600;font-size:14px;margin-bottom:4px}
 .frente .d{color:var(--dim);font-size:12.5px;line-height:1.45}
 
+.ag-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.ag-foto{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid var(--teal);flex:none}
+.etapas{display:flex;flex-direction:column;gap:8px}
+.etapas div{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.etapas .k,.nomes .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:4px}
+.etapas p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.origem summary{cursor:pointer;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.origem p{margin-top:8px}
+.nomes{margin-top:18px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:13px 14px}
+.nomes p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
 .voltar{background:none;border:1px solid var(--line2);color:var(--muted);border-radius:8px;
   padding:9px 14px;font-family:var(--body);font-size:13px;cursor:pointer;margin-top:24px}
 .voltar:hover{border-color:var(--teal);color:var(--teal)}
@@ -129,13 +139,14 @@ ul.lista li b{color:var(--fg);font-weight:600}
     <div class="topo">
       <div class="marca"><span class="pt"></span><b>HIPP</b></div>
       <h1>Sete agentes, <em>uma base de regras só</em>.</h1>
-      <p>Cada ponto é uma rotina que hoje consome hora de equipe. Toque em um agente para ver o que entra, o que sai e o que ele consulta.</p>
+      <p>Cada ponto é uma rotina que hoje consome hora de equipe. Toque em um agente para conhecer quem é, o que faz e com quem conversa.</p>
     </div>
     <div class="legenda">
       <span class="lg"><i style="background:#E6E03D"></i>Estratégia</span>
       <span class="lg"><i style="background:#4FBFA8"></i>Gestão</span>
       <span class="lg"><i style="background:#E8845A"></i>Cadeia</span>
       <span class="lg"><i style="background:#30506E"></i>Base normativa</span>
+      <span class="lg"><i style="background:transparent;border:1px dashed #E6E03D"></i>Quem passa trabalho</span>
     </div>
     <div class="dica">clique em um nó</div>
   </div>
@@ -157,56 +168,101 @@ ul.lista li b{color:var(--fg);font-weight:600}
       desc:'Verifica e desenvolve o fornecedor, documento por documento.' }
   ];
 
+  var IMG = 'https://csnext.ai/assets/agentes/';
   var AGENTES = [
-    { id:'a1', frente:'f1', nome:'Materialidade',
-      faz:'Monta e revisa a dupla materialidade a partir de base GRI e da prática do setor.',
-      entra:'Perfil da operação, temas já declarados, retorno de stakeholder.',
-      sai:'Matriz priorizada, com justificativa por tema e comparação com o ciclo anterior.',
-      rotinas:['Dupla materialidade','Priorização de temas','Consulta a stakeholder','Benchmark setorial','Revisão de ciclo','Justificativa por tema'] },
+    { id:'a1', frente:'f1', p:'ara', n:'Ara', o:'a', nome:'Materialidade',
+      i:'Eu organizo a materialidade da sua empresa, do levantamento dos temas até a matriz pronta, e levo até a dupla materialidade quando for a hora.',
+      c1:'Levanto os temas do seu setor nas normas e no benchmark, mapeio os stakeholders e preparo a consulta.',
+      c2:'Mantenho a matriz atualizada a cada ciclo e quando o negócio muda, com o registro de cada decisão.',
+      c3:'Confiro se o processo se sustenta numa auditoria, com cada nota apontando para a fonte.',
+      t:'Escolher os stakeholders, participar das oficinas e aprovar a matriz. O que é material, quem decide é a liderança.',
+      pr:'Setor e atividades, a matriz anterior se existir, a lista de stakeholders e quem aprova.',
+      h:'Do guarani ára: o mundo, o tempo, tudo o que está em volta. A materialidade começa olhando em volta antes de decidir.',
+      base:'GRI 3, normas setoriais da GRI, SASB, AA1000SES, questionário do ISE B3, ESRS 1 e IFRS S1.',
+      rotinas:['Materialidade de impacto','Temas do setor','Mapa de stakeholders','Consulta a stakeholder','Priorização de temas','Dupla materialidade','Revisão de ciclo','Justificativa por tema'] },
 
-    { id:'a2', frente:'f1', nome:'Regulação',
-      faz:'Acompanha o que muda em norma, exigência de cliente e cobrança de investidor, e avisa só o que afeta aquela empresa.',
-      entra:'CNAE, porte, países de operação, frameworks em uso.',
-      sai:'Aviso do que mudou, o que isso exige e até quando.',
-      rotinas:['CVM 193','IFRS S1 e S2','CSRD','CBAM','Exigência de cliente','Cobrança de investidor','Norma estadual','Prazo de adequação'] },
+    { id:'a2', frente:'f1', p:'teco', n:'Teco', o:'o', nome:'Regulação',
+      i:'Eu descubro quais leis e normas valem para cada unidade da sua empresa e aviso quando alguma muda.',
+      c1:'Monto o registro legal a partir da atividade (CNAE), do porte e de onde fica cada unidade.',
+      c2:'Acompanho normas novas, alteradas e revogadas, com dono e prazo para cada requisito.',
+      c3:'Confiro se cada requisito está vigente e cumprido, com evidência.',
+      t:'Decidir como cumprir cada requisito e interpretar os casos duvidosos junto com o jurídico.',
+      pr:'CNPJ e atividade de cada unidade, endereços, licenças atuais e os compromissos que a empresa assumiu.',
+      h:'Do guarani teko: o modo de ser, o costume, a norma que organiza a vida em comum.',
+      base:'LC 140/2011, Resolução CONAMA 237/1997, Lei 6.938/1981, Lei 9.433/1997, Lei 12.305/2010, NR-4, ISO 14001 e Resolução CVM 193/2023 reformada pela 244/2026.',
+      rotinas:['Registro legal por CNAE','Licenciamento','Outorga de água','Cadastro Técnico Federal','Norma estadual','Norma municipal','IFRS S1 e S2','CSRD','CBAM','Exigência de cliente','Prazo de adequação'] },
 
-    { id:'a3', frente:'f2', nome:'Coleta',
-      faz:'Busca o dado em cada unidade e em cada fonte, consolida e entrega pronto para uso, sem planilha circulando por e-mail.',
-      entra:'Contas, medições e sistemas de cada unidade operacional.',
-      sai:'Base consolidada, com origem de cada número rastreável.',
-      rotinas:['Energia','Água','Resíduo','Combustível','Frota','Efluente','Dado social','Dado de atividade','Limite operacional','Consolidação multiunidade','Conferência de lacuna'] },
+    { id:'a3', frente:'f2', p:'mono', n:'Monó', o:'a', nome:'Coleta',
+      i:'Eu junto os dados de sustentabilidade espalhados pela empresa e deixo tudo conferido numa base só.',
+      c1:'Defino o que coletar a partir dos temas que importam e mapeio de onde vem cada dado.',
+      c2:'Cobro quem não enviou, guardo o histórico e calculo o inventário de emissões.',
+      c3:'Confiro cada fatura, nota e planilha antes de entrar na base.',
+      t:'Enviar os documentos ou liberar o acesso aos sistemas, e confirmar os casos fora do normal.',
+      pr:'Faturas de energia e água, notas de combustível, manifestos de resíduo e dados de pessoas, ou acesso aos sistemas onde eles estão.',
+      h:"Do guarani mono'õ: juntar, reunir. É o trabalho de recolher o que estava espalhado.",
+      base:'GHG Protocol e Programa Brasileiro GHG Protocol, ISO 14064-1, fatores de emissão oficiais e GRI 302, 303, 305, 306, 2-7 e 403.',
+      rotinas:['Energia','Água','Resíduo','Combustível','Frota','Efluente','Dado social','Inventário de GEE','Escopo 1','Escopo 2','Escopo 3','Fator de emissão','Consolidação multiunidade','Conferência de lacuna'] },
 
-    { id:'a4', frente:'f2', nome:'Relato',
-      faz:'Fecha o inventário de emissões por escopo e monta o relatório no formato exigido por cada framework, a partir do dado já consolidado.',
-      entra:'Base consolidada pelo agente de Coleta, fatores de emissão e o framework alvo.',
-      sai:'Inventário de GEE fechado por escopo, relatório e questionário respondidos, com a origem de cada número.',
-      rotinas:['Inventário de GEE','Escopo 1','Escopo 2','Escopo 3','Fator de emissão','GHG Protocol','GRI','SASB','IFRS S1 e S2','ISE B3','CDP','EcoVadis','Questionário de cliente','Rastreabilidade de número'] },
+    { id:'a4', frente:'f2', p:'aivu', n:'Aivu', o:'o', nome:'Relato',
+      i:'Eu transformo os dados da empresa no relatório de sustentabilidade, com cada número apontando para a fonte.',
+      c1:'Monto a estrutura do relatório, o índice GRI e o texto de cada tema.',
+      c2:'Acompanho as metas e mantenho o mesmo método de um ano para o outro.',
+      c3:'Confiro se cada indicador está pronto, coerente e preparado para a asseguração.',
+      t:'Revisar e aprovar o texto, definir as metas e escolher o padrão do relato.',
+      pr:'Os temas materiais, a base de dados consolidada, as metas e o relatório anterior, se existir.',
+      h:'Do guarani ayvu: a fala, a palavra. É a voz que conta o que a empresa fez.',
+      base:'GRI 1 e normas temáticas da GRI, IFRS S1 e S2 (CBPS 01 e 02), NBC TO 3000 e ISAE 3000.',
+      rotinas:['Estrutura do relatório','Índice GRI','Texto por tema','Metas','GRI','SASB','IFRS S1 e S2','ISE B3','CDP','EcoVadis','Questionário de cliente','Asseguração'] },
 
-    { id:'a5', frente:'f3', nome:'Compra Sustentável',
-      faz:'Avalia o fornecedor contra o critério de compra e aponta quando a substituição vale mais que o desenvolvimento.',
-      entra:'Base de fornecedores, critério de compra, histórico de fornecimento.',
-      sai:'Classificação por risco, com recomendação de desenvolver ou substituir.',
-      rotinas:['Critério de compra','Avaliação de fornecedor','Risco de cadeia','Substituição','Fornecedor crítico','Histórico de fornecimento'] },
+    { id:'a5', frente:'f3', p:'pora', n:'Porã', o:'a', nome:'Compra Sustentável',
+      i:'Eu ajudo a sua empresa a comprar bem, colocando sustentabilidade na decisão ao lado de preço e prazo.',
+      c1:'Monto com vocês os critérios de fornecedor, separando o que é lei, o que é referência de mercado e o que é política da empresa.',
+      c2:'Classifico a base por risco, mantenho a homologação em dia e registro as exceções aprovadas.',
+      c3:'Confiro cada fornecedor antes do pedido. Impedimento legal eu barro. O resto vai para vocês decidirem.',
+      t:'Definir a política de compras e decidir as exceções. A escolha final do fornecedor é de compras.',
+      pr:'A lista de fornecedores com CNPJ, as categorias de compra e a política atual, se existir.',
+      h:'Do guarani porã: bom, bonito. A compra bem feita, de quem faz bem feito.',
+      base:'ISO 20400:2017, Lei 12.846/2013 (CEIS e CNEP), Cadastro de Empregadores e Decreto 6.514/2008.',
+      rotinas:['Critério de compra','Política de compras','Classificação por risco','Homologação','Lista suja','Embargo ambiental','Exceção aprovada','Fornecedor crítico'] },
 
-    { id:'a6', frente:'f3', nome:'Conformidade Documental',
-      faz:'Confere cada documento e evidência de fornecedor contra a regra que está valendo, aponta o que venceu e o que está fora.',
-      entra:'Pasta de documentos do fornecedor, em qualquer formato.',
-      sai:'Parecer por documento, com a regra que ele atende ou fere.',
-      rotinas:['Licença ambiental','CADRI','Alvará','AVCB','Certidão negativa','Laudo técnico','Validade','Renovação','Órgão emissor'] },
+    { id:'a6', frente:'f3', p:'tessa', n:'Tessa', o:'a', nome:'Conformidade Documental',
+      i:'Eu cuido dos documentos obrigatórios das suas unidades e dos seus fornecedores, para nada vencer sem aviso.',
+      c1:'Monto a lista de documentos que cada unidade e cada fornecedor precisa ter, conforme a atividade.',
+      c2:'Controlo os vencimentos e aviso antes, com tempo de renovar.',
+      c3:'Confiro validade, CNPJ, endereço e atividade de cada documento.',
+      t:'Pedir e renovar os documentos junto aos órgãos e aos fornecedores.',
+      pr:'As licenças, certidões e alvarás atuais, e a lista de unidades e fornecedores.',
+      h:'Do guarani tesa: olho. O olhar atento que não deixa nada passar.',
+      base:'LC 140/2011, regras de licenciamento de cada estado, Lei 12.440/2011 e as regras de cada certidão.',
+      rotinas:['Matriz de documentos','Licença ambiental','Cadastro Técnico Federal','Outorga','CADRI','Alvará','AVCB','Certidão negativa','Laudo técnico','Vencimento','Renovação'] },
 
-    { id:'a7', frente:'f3', nome:'Desenvolvimento',
-      faz:'Acompanha o plano de adequação de cada fornecedor até ele atender o que foi exigido.',
-      entra:'Lacunas apontadas, meta e prazo acordados.',
-      sai:'Plano por fornecedor, com evolução comparável entre ciclos.',
-      rotinas:['Plano de adequação','Meta por fornecedor','Prazo','Acompanhamento','Reavaliação','Evolução comparável'] }
+    { id:'a7', frente:'f3', p:'roqui', n:'Roqui', o:'o', nome:'Desenvolvimento',
+      i:'Eu ajudo seus fornecedores a evoluir, com um plano claro e quem tem a solução para cada ponto.',
+      c1:'Aplico o diagnóstico de maturidade e monto o plano de cada fornecedor.',
+      c2:'Acompanho as ações, cobro os prazos e reaplico o diagnóstico para medir a evolução.',
+      c3:'Confiro se cada plano tem dono, prazo e está andando.',
+      t:'Escolher quais fornecedores entram no programa e conduzir a relação com eles.',
+      pr:'A lista de fornecedores prioritários e o contato de cada um.',
+      h:'Do guarani hoky: brotar. O fornecedor que começa pequeno e cresce com a cadeia.',
+      base:'Diagnóstico de maturidade (Innovability Score), ISO 20400:2017 e GRI 308-2 e 414-2.',
+      rotinas:['Diagnóstico de maturidade','Plano de desenvolvimento','Conexão com solucionador','Meta por fornecedor','Acompanhamento','Reavaliação','Evolução comparável'] }
   ];
 
-  var BASE = ['GRI','SASB','ISO 14001','ISO 45001','ISO 56002','GHG Protocol','IFRS S1 e S2','Biblioteca HIPP'];
+  // quem passa trabalho para quem
+  var FLUXOS = [
+    ['a1','a3','o que coletar'], ['a1','a4','o que relatar'], ['a1','a2','temas com olhar regulatório'], ['a1','a5','temas que pesam na cadeia'],
+    ['a2','a6','quais documentos cada um precisa'], ['a2','a4','o que a regulação pede no relato'], ['a2','a5','exigência legal mínima'],
+    ['a3','a4','dado já conferido'], ['a6','a5','sinal verde dos documentos'],
+    ['a5','a7','quem precisa evoluir'], ['a7','a5','fornecedor pronto para homologar de novo'],
+    ['a5','a4','a cadeia no relatório'], ['a7','a4','evolução da cadeia']
+  ];
+
+  var BASE = ['GRI','Normas setoriais GRI','SASB','AA1000','ISE B3','ISO 14001','ISO 20400','ISO 14064','GHG Protocol','IFRS S1 e S2','Legislação brasileira','Biblioteca HIPP'];
 
   // ---------- monta o grafo ----------
   var nodes = [], links = [], byId = {};
   function add(n){ nodes.push(n); byId[n.id] = n; return n; }
-  function link(a,b,len){ links.push({ a:byId[a], b:byId[b], len:len }); }
+  function link(a,b,len,k,oculto){ links.push({ a:byId[a], b:byId[b], len:len, k:(k===undefined?1:k), oculto:!!oculto }); }
 
   add({ id:'core', tipo:'core', rotulo:'Sua empresa', r:15, cor:C.fg });
   try {
@@ -219,9 +275,12 @@ ul.lista li b{color:var(--fg);font-weight:600}
     }
   } catch(e) {}
 
+  add({ id:'orq', tipo:'orq', rotulo:'Orquestrador', r:12, cor:C.teal });
+  link('core','orq',64,4);
   FRENTES.forEach(function(f){
     add({ id:f.id, tipo:'frente', rotulo:f.nome, r:10, cor:f.cor, dado:f });
-    link('core', f.id, 128);
+    link('core', f.id, 128, 1, true);
+    link('orq', f.id, 110, 0);
   });
 
   add({ id:'base', tipo:'base', rotulo:'Base de regras', r:11, cor:C.base });
@@ -236,13 +295,14 @@ ul.lista li b{color:var(--fg);font-weight:600}
   var totalRotinas = 0;
   AGENTES.forEach(function(a){
     var f = FRENTES.filter(function(x){ return x.id === a.frente; })[0];
-    add({ id:a.id, tipo:'agente', rotulo:a.nome, r:7.5, cor:f.cor, dado:a, frenteNome:f.nome });
-    link(a.frente, a.id, 88);
+    var im = new Image(); im.src = IMG + a.p + '.jpg';
+    add({ id:a.id, tipo:'agente', rotulo:a.n + ' · ' + a.nome, r:17, cor:f.cor, dado:a, frenteNome:f.nome, img:im });
+    link(a.frente, a.id, 105);
     link('base', a.id, 190);
     a.rotinas.forEach(function(r,i){
       var id = a.id+'r'+i;
       add({ id:id, tipo:'rotina', rotulo:r, r:3.6, cor:f.cor, pai:a.id });
-      link(a.id, id, 44);
+      link(a.id, id, 54);
       totalRotinas++;
     });
   });
@@ -250,7 +310,7 @@ ul.lista li b{color:var(--fg);font-weight:600}
   // posições iniciais em anel, para a simulação convergir bonito
   nodes.forEach(function(n,i){
     var ang = (i / nodes.length) * Math.PI * 2;
-    var raio = n.tipo === 'core' ? 0 : n.tipo === 'frente' || n.tipo === 'base' ? 130 :
+    var raio = n.tipo === 'core' ? 0 : n.tipo === 'orq' ? 60 : n.tipo === 'frente' || n.tipo === 'base' ? 130 :
                n.tipo === 'agente' ? 210 : 290;
     n.x = Math.cos(ang) * raio + (Math.random()-0.5)*40;
     n.y = Math.sin(ang) * raio + (Math.random()-0.5)*40;
@@ -298,7 +358,7 @@ ul.lista li b{color:var(--fg);font-weight:600}
       var l = links[i];
       dx = l.b.x-l.a.x; dy = l.b.y-l.a.y;
       d = Math.sqrt(dx*dx+dy*dy) || 0.01;
-      f = (d - l.len) * 0.018;
+      f = (d - l.len) * 0.018 * l.k;
       dx /= d; dy /= d;
       l.a.vx += dx*f; l.a.vy += dy*f;
       l.b.vx -= dx*f; l.b.vy -= dy*f;
@@ -333,11 +393,27 @@ ul.lista li b{color:var(--fg);font-weight:600}
 
     ctx.lineWidth = 1;
     links.forEach(function(l){
+      if (l.oculto) return;
       var p = pos(l.a), q = pos(l.b);
       var forte = foco && (l.a === foco || l.b === foco);
       ctx.strokeStyle = forte ? 'rgba(79,191,168,.55)'
                      : foco ? 'rgba(34,58,82,.35)' : 'rgba(34,58,82,.9)';
       ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
+    });
+
+    // fluxos de trabalho entre agentes
+    FLUXOS.forEach(function(fl){
+      var a = byId[fl[0]], b = byId[fl[1]];
+      var ativo = foco && (foco === a || foco === b);
+      if (foco && !ativo) return;
+      var p = pos(a), q = pos(b);
+      var mx2 = (p.x+q.x)/2 - (q.y-p.y)*0.18, my2 = (p.y+q.y)/2 + (q.x-p.x)*0.18;
+      ctx.save();
+      ctx.setLineDash([5,5]);
+      ctx.lineWidth = ativo ? 1.6 : 1;
+      ctx.strokeStyle = ativo ? 'rgba(230,224,61,.85)' : 'rgba(230,224,61,.18)';
+      ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.quadraticCurveTo(mx2,my2,q.x,q.y); ctx.stroke();
+      ctx.restore();
     });
 
     nodes.forEach(function(n){
@@ -351,15 +427,24 @@ ul.lista li b{color:var(--fg);font-weight:600}
       }
       ctx.beginPath(); ctx.arc(p.x,p.y,r,0,Math.PI*2);
       ctx.fillStyle = n.cor; ctx.fill();
+      if (n.tipo === 'agente' && n.img && n.img.complete && n.img.naturalWidth){
+        ctx.save();
+        ctx.beginPath(); ctx.arc(p.x,p.y,r-2,0,Math.PI*2); ctx.clip();
+        ctx.drawImage(n.img, p.x-r+2, p.y-r+2, (r-2)*2, (r-2)*2);
+        ctx.restore();
+      }
+      if (n.tipo === 'orq'){
+        ctx.lineWidth = 2; ctx.strokeStyle = '#0A1628'; ctx.stroke(); ctx.lineWidth = 1;
+      }
       if (n.tipo === 'core' || n.tipo === 'frente'){
         ctx.lineWidth = 2; ctx.strokeStyle = '#0A1628'; ctx.stroke(); ctx.lineWidth = 1;
       }
 
-      var mostra = n.tipo === 'core' || n.tipo === 'frente' || n.tipo === 'agente'
+      var mostra = n.tipo === 'core' || n.tipo === 'orq' || n.tipo === 'frente' || n.tipo === 'agente'
                    || n.tipo === 'base' || n === foco
                    || (foco && vizinhos[foco.id] && vizinhos[foco.id][n.id]);
       if (mostra && acesa){
-        var tam = n.tipo === 'core' ? 13 : n.tipo === 'frente' ? 12
+        var tam = n.tipo === 'core' ? 13 : n.tipo === 'frente' || n.tipo === 'orq' ? 12
                 : n.tipo === 'agente' ? 11.5 : 10;
         ctx.font = (n.tipo === 'rotina' || n.tipo === 'norma' ? '400 ' : '600 ')
                  + (tam*escala + 2.2) + "px 'IBM Plex Sans', sans-serif";
@@ -430,7 +515,7 @@ ul.lista li b{color:var(--fg);font-weight:600}
     lamina.innerHTML =
       '<p class="eyebrow">O sistema</p>' +
       '<h2>Os agentes fazem o trabalho. O seu time fica com a decisão.</h2>' +
-      '<p class="lead">Sete agentes divididos em três frentes, todos consultando a mesma base normativa e a biblioteca de regras da HIPP.</p>' +
+      '<p class="lead">Sete agentes em três frentes, coordenados por um orquestrador e consultando a mesma base de regras. Contrate um agente para uma tarefa, ou o time inteiro.</p>' +
       '<div class="numeros">' +
         '<div class="num"><b>7</b><span>Agentes</span></div>' +
         '<div class="num"><b>3</b><span>Frentes</span></div>' +
@@ -447,9 +532,13 @@ ul.lista li b{color:var(--fg);font-weight:600}
         '<input id="emp" type="text" maxlength="38" placeholder="Sua empresa" value="' +
           (byId.core.rotulo === 'Sua empresa' ? '' : esc(byId.core.rotulo)) + '">' +
         '<p style="margin:8px 0 0;color:var(--dim);font-size:12px">Troque pelo nome da empresa antes de apresentar.</p></div>' +
-      '<div class="bloco"><span class="k">Como a regra fica</span>' +
-        '<p>A regra fica em dado, nunca em código. O motor é construído uma vez e não muda por cliente. ' +
-        'O que muda é o arquivo de configuração, escrito por especialista de sustentabilidade.</p></div>';
+      '<div class="bloco"><span class="k">Duas camadas</span>' +
+        '<p>A HIPP traz a base: lei, norma e referência de mercado, com a fonte de cada regra. ' +
+        'A política é da sua empresa, montada junto na implantação. Impedimento legal o agente barra. Critério da empresa vai para a sua equipe decidir.</p></div>' +
+      '<div class="bloco"><span class="k">As linhas amarelas</span>' +
+        '<p>Mostram quem passa trabalho para quem. Toque em um agente para ver só as dele.</p></div>' +
+      '<div class="nomes"><span class="k">Nomes de quem cuida desta terra há mais tempo</span>' +
+        '<p>Cada agente tem um nome inspirado em línguas tupi-guarani, escolhido pelo que ele faz. É a nossa homenagem a quem pratica sustentabilidade desde antes de ela ter esse nome.</p></div>';
     var campo = document.getElementById('emp');
     if (campo) campo.addEventListener('input', function(){
       byId.core.rotulo = campo.value.trim() || 'Sua empresa';
@@ -457,17 +546,40 @@ ul.lista li b{color:var(--fg);font-weight:600}
   }
 
   function abrirAgente(a, cor, frenteNome){
+    var nome = function(id){ var x = byId[id].dado; return x.n; };
+    var recebe = FLUXOS.filter(function(f){ return f[1] === a.id; });
+    var entrega = FLUXOS.filter(function(f){ return f[0] === a.id; });
     lamina.innerHTML =
-      '<p class="eyebrow" style="color:' + cor + '">' + esc(frenteNome) + '</p>' +
-      '<h2>Agente de ' + esc(a.nome) + '</h2>' +
-      '<p class="lead">' + esc(a.faz) + '</p>' +
-      '<div class="bloco"><span class="k">O que entra</span><p>' + esc(a.entra) + '</p></div>' +
-      '<div class="bloco"><span class="k">O que sai</span><p>' + esc(a.sai) + '</p></div>' +
-      '<div class="bloco"><span class="k">Rotinas que ele assume (' + a.rotinas.length + ')</span>' +
+      '<div class="ag-top"><img class="ag-foto" src="' + IMG + a.p + '.jpg" alt="" style="border-color:' + cor + '">' +
+        '<div><p class="eyebrow" style="color:' + cor + ';margin:0 0 4px">' + esc(frenteNome) + ' · ' + esc(a.nome) + '</p>' +
+        '<h2 style="margin:0">Olá, eu sou ' + a.o + ' ' + esc(a.n) + '.</h2></div></div>' +
+      '<p class="lead" style="border-left:3px solid ' + cor + ';padding-left:12px">' + esc(a.i) + '</p>' +
+      '<div class="etapas">' +
+        '<div><span class="k">Construir</span><p>' + esc(a.c1) + '</p></div>' +
+        '<div><span class="k">Gerir</span><p>' + esc(a.c2) + '</p></div>' +
+        '<div><span class="k">Conferir</span><p>' + esc(a.c3) + '</p></div>' +
+      '</div>' +
+      '<div class="bloco"><span class="k">Fica com a sua equipe</span><p>' + esc(a.t) + '</p></div>' +
+      '<div class="bloco"><span class="k">O que eu preciso de você</span><p>' + esc(a.pr) + '</p></div>' +
+      ((recebe.length || entrega.length) ? '<div class="bloco"><span class="k">Com quem eu converso</span><ul class="lista">' +
+        recebe.map(function(f){ return '<li><b>' + esc(nome(f[0])) + '</b> me passa ' + esc(f[2]) + '</li>'; }).join('') +
+        entrega.map(function(f){ return '<li>Eu passo para <b>' + esc(nome(f[1])) + '</b>: ' + esc(f[2]) + '</li>'; }).join('') +
+        '</ul></div>' : '') +
+      '<div class="bloco"><span class="k">Rotinas que eu assumo (' + a.rotinas.length + ')</span>' +
         '<ul class="rot">' + a.rotinas.map(function(r){
           return '<li>' + esc(r) + '</li>'; }).join('') + '</ul></div>' +
-      '<div class="bloco"><span class="k">Base que ele consulta</span>' +
-        '<p>GRI, SASB, ISO 14001, ISO 45001, ISO 56002, GHG Protocol e IFRS S1 e S2, mais a biblioteca proprietária de regras da HIPP.</p></div>' +
+      '<div class="bloco"><span class="k">Base que eu consulto</span><p>' + esc(a.base) + ' Mais a biblioteca de regras da HIPP.</p></div>' +
+      '<details class="bloco origem"><summary>A origem do meu nome</summary><p>' + esc(a.h) + '</p></details>' +
+      '<button class="voltar" type="button" id="volta">Voltar para o sistema</button>';
+    document.getElementById('volta').addEventListener('click', inicio);
+  }
+
+  function abrirOrq(){
+    lamina.innerHTML =
+      '<p class="eyebrow">Orquestrador</p>' +
+      '<h2>O gerente de projeto do time.</h2>' +
+      '<p class="lead">Recebe o pedido da empresa, decide quais agentes entram e em que ordem, passa o resultado de um para o outro e junta tudo num painel só.</p>' +
+      '<div class="bloco"><span class="k">Exemplo</span><p>Um tema material novo muda o que a Monó coleta e o que o Aivu relata. O orquestrador avisa os dois.</p></div>' +
       '<button class="voltar" type="button" id="volta">Voltar para o sistema</button>';
     document.getElementById('volta').addEventListener('click', inicio);
   }
@@ -480,7 +592,7 @@ ul.lista li b{color:var(--fg);font-weight:600}
       '<p class="lead">' + esc(f.desc) + '</p>' +
       '<div class="bloco"><span class="k">Agentes desta frente</span>' +
         '<ul class="lista">' + meus.map(function(a){
-          return '<li><b>' + esc(a.nome) + '</b><br>' + esc(a.faz) + '</li>'; }).join('') +
+          return '<li><b>' + esc(a.n) + ' · ' + esc(a.nome) + '</b><br>' + esc(a.i) + '</li>'; }).join('') +
         '</ul></div>' +
       '<button class="voltar" type="button" id="volta">Voltar para o sistema</button>';
     document.getElementById('volta').addEventListener('click', inicio);
@@ -505,6 +617,7 @@ ul.lista li b{color:var(--fg);font-weight:600}
     selecionado = n;
     if (n.tipo === 'agente') { abrirAgente(n.dado, n.cor, n.frenteNome); return; }
     if (n.tipo === 'frente') { abrirFrente(n.dado); return; }
+    if (n.tipo === 'orq') { abrirOrq(); return; }
     if (n.tipo === 'base' || n.tipo === 'norma') { abrirBase(); return; }
     if (n.tipo === 'rotina') {
       var pai = byId[n.pai];
